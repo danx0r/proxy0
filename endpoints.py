@@ -1,4 +1,6 @@
-import sys, os, requests
+import requests
+from pprint import pprint
+from django.http import HttpResponse
 
 #this file gets imported by djserver
 import djhelpers as dj
@@ -24,4 +26,5 @@ def proxy0_testargs(*args, **kw):
 
 def proxy0_get(url):
     resp = requests.get(url)
-    return dj.json({"response": resp.status_code, "size": len(resp.content), "type": resp.headers['Content-Type']})
+    pprint({"response": resp.status_code, "size": len(resp.content), "type": resp.headers['Content-Type']})
+    return HttpResponse(resp.content, content_type=resp.headers['Content-Type'])
